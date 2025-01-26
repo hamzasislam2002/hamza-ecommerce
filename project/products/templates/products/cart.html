@@ -11,21 +11,30 @@
                 <th>Product Name</th>
                 <th>Product Price</th>
                 <th>Quantity</th>
-                <th>Total Price</th>
+                <th>Purchase Date</th>
             </tr>
         </thead>
 
         <tbody>
             
-            <tr>
-                <td>{{ session['nameproduct'] }}</td>
-                <td>{{ session['priceproduct'] }}</td>
-                <td>{{ session['quantityproduct'] }}</td>
-                <td>{{ session['priceproduct']|float * session['quantityproduct']|int }}</td>
-            </tr>
-            
+            {% for product in products %}
+                <tr>
+                    <td><a href="{{ url_for('products.product_details', id=product.id) >}}">{{ session['nameproduct'] }}</a></td>
+                    <td>{{ session['priceproduct'] }}</td>
+                    <td>{{ session['quantityproduct'] }}</td>
+                    <td>{{ product.purchasedate.strftime("%Y-%m-%d") }}</td>
+                </tr>
+            {% endfor %}
+        
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><b>TOTAL VALUE</b></td>
+                    <td>{{ session['priceproduct']|float * session['quantityproduct']|int }}</td>
+                </tr>
+            </tfoot>
         </tbody>
     </table>
-
 </div>
 {% endblock %}

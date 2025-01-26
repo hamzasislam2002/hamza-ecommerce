@@ -74,7 +74,7 @@ def register_error_pages(app):
         return render_template('405.html'), 405
     
     @app.errorhandler(403)
-    def method_not_allowed(e):
+    def page_forbidden(e):
         return render_template('403.html'), 403
     
 def initialize_extensions(app):

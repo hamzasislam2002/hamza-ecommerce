@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+
+{% block styling %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2>Chart.js Demo #1</h2>
+<br>
+<canvas id="productChart" width="500" height="400"></canvas>
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+          
+var ctx = document.getElementById('productChart').getContext('2d');
+      
+      
+Chart.defaults.global.defaultFontColor = 'black';
+      
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: 'Count',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: 'blue',
+          borderColor: 'white',
+          borderWidth: 1,
+        }]
+    },
+});
+</script>
+{% endblock %}

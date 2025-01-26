@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block styling %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2>ChartJS Demo #2</h2>
+<br>
+<canvas id="stockChart" width="500" height="400"></canvas>
+
+<script id="labels-data" type="application/json">
+  {{ labels|json_script:"labels-data" }}
+</script>
+<script id="values-data" type="application/json">
+  {{ values|json_script:"values-data" }}
+</script>
+<script id="title-data" type="application/json">
+  {{ title|json_script:"title-data" }}
+</script>
+{% endblock %}
+
+{% block javascript %}
+<script>
+// Parse data from JSON script tags
+var labels = JSON.parse(document.getElementById('labels-data').textContent);
+var values = JSON.parse(document.getElementById('values-data').textContent);
+var title = JSON.parse(document.getElementById('title-data').textContent);
+
+// Log data for debugging (optional)
+console.log(labels, values, title);
+
+// Get the canvas element for modifying the data contents
+var ctx = document.getElementById('stockChart').getContext('2d');
+
+// Create the chart
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Price ($)',
+      data: values,
+      backgroundColor: 'rgba(0, 123, 255, 0.5)', // Semi-transparent blue
+      borderColor: 'rgba(0, 123, 255, 1)',       // Solid blue border
+      borderWidth: 2
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: title
+    },
+    legend: {
+      display: true,
+      position: 'bottom',
+      align: 'center'
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+</script>
+{% endblock %}
